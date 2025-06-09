@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>סינמטיק | הפקת סרטים שמשאירה חותם</title>
+    <meta name="description"
+        content="סינמטיק מתמחה בהפקת סרטים מקצועית לעסקים, אירועים וקולנוע. אנו מביאים את החזון שלכם למסך הגדול עם יצירתיות, טכנולוגיה ורגש.">
+    <meta name="keywords" content="הפקת סרטים, הפקת וידאו, סרטי תדמית, פרסומות, קולנוע, עריכת וידאו, סינמטיק">
+
+    <meta property="og:title" content="סינמטיק | הפקת סרטים שמשאירה חותם">
+    <meta property="og:description"
+        content="מפרסומות ועד דוקומנטרי, אנו יוצרים קולנוע שמדבר. בואו ניצור יחד את הפרויקט הבא שלכם.">
+    <meta property="og:image"
+        content="https://images.pexels.com/photos/7924040/pexels-photo-7924040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+    <meta property="og:url" content="https://your-website-url.com">
+    <meta property="og:type" content="website">
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =================================== */
+        /* 1. GLOBAL SETUP & CSS VARIABLES  */
+        /* =================================== */
+        :root {
+            --color-gold: #D4AF37;
+            --color-gold-darker: #c09f32;
+            --color-bg: #0d0d0d;
+            --color-surface: #1a1a1a;
+            --color-text: #e0e0e0;
+            --color-text-muted: #999;
+            --color-black: #000;
+            --color-white: #fff;
+
+            --font-primary: 'Heebo', sans-serif;
+
+            --font-h1: clamp(2.8rem, 6vw + 1rem, 5.5rem);
+            --font-h2: clamp(2.2rem, 5vw + 1rem, 3.5rem);
+            --font-h3: clamp(1.4rem, 2vw + 1rem, 2rem);
+            --font-body: clamp(1rem, 0.5vw + 0.9rem, 1.125rem);
+
+            --section-padding: clamp(5rem, 10vw, 8rem) 5%;
+            --transition-fast: 300ms;
+            --transition-medium: 500ms;
+            --border-radius: 8px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-size: var(--font-body);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-white);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        h1 {
+            font-size: var(--font-h1);
+        }
+
+        h2 {
+            font-size: var(--font-h2);
+        }
+
+        h3 {
+            font-size: var(--font-h3);
+        }
+
+        .highlight {
+            color: var(--color-gold);
+        }
+
+        a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: color var(--transition-fast) ease;
+        }
+
+        a:hover {
+            color: var(--color-gold-darker);
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: var(--section-padding);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* =================================== */
+        /* 2. UTILITY & ANIMATION CLASSES   */
+        /* =================================== */
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            background-image: linear-gradient(45deg, var(--color-gold), var(--color-gold-darker));
+            color: var(--color-black);
+            font-weight: 700;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            color: var(--color-black);
+        }
+
+        /* Scroll Animation Setup */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: opacity, transform;
+        }
+
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--color-bg);
+            z-index: 9999;
+            display: grid;
+            place-items: center;
+            transition: opacity var(--transition-medium) ease, visibility var(--transition-medium) ease;
+        }
+
+        .preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-icon {
+            font-size: 3rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        /* =================================== */
+        /* 3. HEADER & NAVIGATION           */
+        /* =================================== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color var(--transition-fast) ease, padding var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+        }
+
+        .main-header.scrolled {
+            padding: 1rem 5%;
+            background-color: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-white);
+            letter-spacing: -1px;
+        }
+
+        .main-nav {
+            display: flex;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .main-nav a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            color: var(--color-white);
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-gold);
+            transition: width var(--transition-fast) ease;
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+        }
+
+        .hamburger-menu .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--color-white);
+            transition: all var(--transition-fast) ease-in-out;
+        }
+
+        /* =================================== */
+        /* 4. HERO SECTION                  */
+        /* =================================== */
+        #hero {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            color: var(--color-white);
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 13, 13, 1) 0%, rgba(13, 13, 13, 0.8) 50%, rgba(13, 13, 13, 0.4) 100%);
+            z-index: 1;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 4px;
+            height: var(--font-h1);
+            background-color: var(--color-gold);
+            animation: blink 0.8s infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero p {
+            font-size: var(--font-h3);
+            margin-bottom: 2.5rem;
+            color: var(--color-text);
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* =================================== */
+        /* 5. ABOUT SECTION                 */
+        /* =================================== */
+        #about {
+            background-color: var(--color-bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content p {
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .counters {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .counter-item .counter-number {
+            font-size: var(--font-h2);
+            font-weight: 900;
+            color: var(--color-gold);
+        }
+
+        .counter-item p {
+            margin-top: 0.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform var(--transition-medium) ease;
+        }
+
+        .about-image-wrapper:hover {
+            transform: perspective(1000px) rotateY(0) rotateX(0) scale(1.02);
+        }
+
+        .about-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* =================================== */
+        /* 6. SERVICES SECTION              */
+        /* =================================== */
+        #services {
+            background-color: var(--color-surface);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .section-header p {
+            color: var(--color-text-muted);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--color-bg);
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid #2a2a2a;
+            transition: transform var(--transition-fast) ease, border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-gold);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card .icon {
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            color: var(--color-white);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Staggered animation delay */
+        .service-card:nth-child(2) {
+            transition-delay: 100ms;
+        }
+
+        .service-card:nth-child(3) {
+            transition-delay: 200ms;
+        }
+
+        .service-card:nth-child(4) {
+            transition-delay: 300ms;
+        }
+
+        .service-card:nth-child(5) {
+            transition-delay: 400ms;
+        }
+
+        .service-card:nth-child(6) {
+            transition-delay: 500ms;
+        }
+
+        /* =================================== */
+        /* 7. PORTFOLIO SECTION             */
+        /* =================================== */
+        #portfolio {
+            background-color: var(--color-bg);
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-filters button {
+            background: none;
+            border: 1px solid #444;
+            color: var(--color-text-muted);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all var(--transition-fast) ease;
+        }
+
+        .portfolio-filters button:hover {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            border-color: var(--color-gold);
+        }
+
+        .portfolio-filters button.active {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            border-color: var(--color-gold);
+            font-weight: 700;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 16/10;
+            background-color: var(--color-surface);
+            transition: transform var(--transition-medium) cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .portfolio-item.hidden {
+            display: none;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-medium) ease;
+        }
+
+        .portfolio-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+            opacity: 0;
+            transition: opacity var(--transition-medium) ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+
+        .portfolio-item:hover .portfolio-item-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-item-overlay h3 {
+            font-size: 1.3rem;
+            color: var(--color-white);
+        }
+
+        .portfolio-item-overlay p {
+            color: var(--color-gold);
+        }
+
+        /* Portfolio Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-fast) ease, visibility var(--transition-fast) ease;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--color-surface);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            /* RTL support */
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: var(--color-white);
+            cursor: pointer;
+        }
+
+        .modal-body img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        /* =================================== */
+        /* 8. TESTIMONIALS SECTION          */
+        /* =================================== */
+        #testimonials {
+            background-color: var(--color-surface);
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            min-height: 350px;
+        }
+
+        .testimonial-slide {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-medium) ease, transform var(--transition-medium) ease;
+            transform: translateX(20px);
+        }
+
+        .testimonial-slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .testimonial-slide.exiting {
+            transform: translateX(-20px);
+        }
+
+        .testimonial-author img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem auto;
+            border: 3px solid var(--color-gold);
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .star-rating {
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author h4 {
+            color: var(--color-white);
+        }
+
+        .testimonial-author p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #444;
+            cursor: pointer;
+            transition: background-color var(--transition-fast) ease;
+        }
+
+        .slider-dot.active {
+            background-color: var(--color-gold);
+        }
+
+        /* =================================== */
+        /* 9. CONTACT SECTION               */
+        /* =================================== */
+        #contact {
+            background-color: var(--color-bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--color-surface);
+            border: 1px solid #333;
+            border-radius: var(--border-radius);
+            color: var(--color-text);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info-item .icon {
+            font-size: 2rem;
+            color: var(--color-gold);
+        }
+
+        .contact-info-item a {
+            color: var(--color-text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            color: var(--color-text-muted);
+        }
+
+        .social-links a:hover {
+            color: var(--color-gold);
+            transform: scale(1.1);
+        }
+
+        /* =================================== */
+        /* 10. FOOTER                       */
+        /* =================================== */
+        .main-footer {
+            background-color: #000;
+            text-align: center;
+            padding: 2.5rem 5%;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .main-footer .logo {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .main-footer p {
+            margin-bottom: 1rem;
+        }
+
+        /* =================================== */
+        /* 11. RESPONSIVE DESIGN            */
+        /* =================================== */
+        @media (max-width: 992px) {
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image-wrapper {
+                margin-top: 3rem;
+                transform: none;
+                /* Reset 3d effect for simpler layout */
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Mobile Navigation */
+            .main-nav {
+                position: fixed;
+                inset: 0;
+                background-color: rgba(13, 13, 13, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform var(--transition-medium) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                display: flex;
+            }
+
+            body.nav-open .main-nav {
+                transform: translateX(0);
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .main-nav a {
+                font-size: 1.5rem;
+            }
+
+            .main-header .cta-button {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+            }
+
+            /* Animate hamburger to 'X' */
+            body.nav-open .hamburger-menu .bar:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+
+            body.nav-open .hamburger-menu .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            body.nav-open .hamburger-menu .bar:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -6px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="preloader">
+        <div class="preloader-icon">🎬</div>
+    </div>
+
+    <header class="main-header">
+        <a href="#hero" class="logo">סינמטיק<span class="highlight">.</span></a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#about">אודות</a></li>
+                <li><a href="#services">שירותים</a></li>
+                <li><a href="#portfolio">תיק עבודות</a></li>
+                <li><a href="#contact">יצירת קשר</a></li>
+            </ul>
+        </nav>
+        <a href="#contact" class="cta-button">התחילו פרויקט</a>
+        <button class="hamburger-menu" aria-label="Toggle navigation">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <main>
+
+        <section id="hero">
+            <video class="hero-video-bg" autoplay muted loop playsinline
+                poster="https://images.pexels.com/photos/7924040/pexels-photo-7924040.jpeg">
+                <source src="https://videos.pexels.com/video-files/853825/853825-hd_1920_1080_25fps.mp4"
+                    type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content scroll-animate">
+                <h1><span class="typewriter">מביאים את החזון שלכם למסך</span><span
+                        class="typewriter-cursor">&nbsp;</span></h1>
+                <p>הפקת סרטים מקצועית שלוכדת רגש, מספרת סיפור ומניעה תוצאות.</p>
+                <a href="#portfolio" class="cta-button">צפו בעבודות שלנו</a>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2 class="scroll-animate">הסיפור שלנו הוא <span class="highlight">לספר את שלכם</span></h2>
+                    <p class="scroll-animate" style="transition-delay: 100ms;">בסינמטיק, אנו מאמינים שלכל מותג, אירוע או
+                        רעיון יש סיפור ייחודי שמחכה להתגלות. המשימה שלנו היא להפוך את הסיפור הזה לחוויה ויזואלית בלתי
+                        נשכחת. עם שילוב של טכנולוגיה קולנועית מתקדמת, יצירתיות פורצת דרך ותשוקה אמיתית לאמנות הסיפור,
+                        אנחנו יוצרים יותר מסתם סרטים - אנחנו יוצרים חיבורים.</p>
+
+                    <div class="counters scroll-animate" style="transition-delay: 200ms;">
+                        <div class="counter-item">
+                            <span class="counter-number" data-target="500">0</span>+
+                            <p>פרויקטים שהושלמו</p>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" data-target="50">0</span>+
+                            <p>לקוחות מרוצים</p>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" data-target="10">0</span>+
+                            <p>שנות ניסיון</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image-wrapper scroll-animate" style="transition-delay: 300ms;">
+                    <img src="https://images.pexels.com/photos/265685/pexels-photo-265685.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        alt="צוות צילום בפעולה" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="section-header scroll-animate">
+                    <h2>השירותים שלנו</h2>
+                    <p>מפרסומות מבריקות ועד סרטי תדמית מרגשים, אנו מציעים מגוון רחב של שירותי הפקה כדי לענות על כל צורך
+                        ויזואלי שלכם.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card scroll-animate">
+                        <div class="icon">🎥</div>
+                        <h3>הפקת פרסומות</h3>
+                        <p>יצירת קמפיינים ויראליים וסרטוני פרסומת שמניעים לפעולה ומגדילים מכירות.</p>
+                    </div>
+                    <div class="service-card scroll-animate">
+                        <div class="icon">📜</div>
+                        <h3>סרטים דוקומנטריים</h3>
+                        <p>תיעוד סיפורים אמיתיים ומרתקים בצורה קולנועית שמעוררת השראה ושיח.</p>
+                    </div>
+                    <div class="service-card scroll-animate">
+                        <div class="icon">🏢</div>
+                        <h3>סרטי תדמית לעסקים</h3>
+                        <p>הצגת העסק, המוצרים והערכים שלכם בצורה מקצועית שבונה אמון ומותג.</p>
+                    </div>
+                    <div class="service-card scroll-animate">
+                        <div class="icon">🎉</div>
+                        <h3>צילום אירועים</h3>
+                        <p>תיעוד קולנועי של אירועים פרטיים ועסקיים, מהכנס ועד לחתונה שלכם.</p>
+                    </div>
+                    <div class="service-card scroll-animate">
+                        <div class="icon">💍</div>
+                        <h3>סרטי חתונה</h3>
+                        <p>הופכים את היום המיוחד שלכם לסרט אהבה נצחי, מלא ברגעים קסומים.</p>
+                    </div>
+                    <div class="service-card scroll-animate">
+                        <div class="icon">✂️</div>
+                        <h3>שירותי פוסט-פרודקשן</h3>
+                        <p>עריכה, צבע, סאונד ואפקטים. כל מה שצריך כדי להפוך חומר גלם ליצירת מופת.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <div class="section-header scroll-animate">
+                    <h2>תיק עבודות</h2>
+                    <p>הצצה לכמה מהפרויקטים שאנחנו גאים בהם במיוחד. כל פרויקט הוא סיפור, כל פריים הוא אמנות.</p>
+                </div>
+                <div class="portfolio-filters scroll-animate" style="transition-delay: 100ms;">
+                    <button class="filter-btn active" data-filter="all">הכל</button>
+                    <button class="filter-btn" data-filter="commercials">פרסומות</button>
+                    <button class="filter-btn" data-filter="corporate">תדמית</button>
+                    <button class="filter-btn" data-filter="events">אירועים</button>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item scroll-animate" data-category="commercials"
+                        data-title="קמפיין 'אנרגיה אורבנית'"
+                        data-description="פרסומת דינמית למותג אופנת רחוב חדש שהפכה לוויראלית.">
+                        <img src="https://images.pexels.com/photos/1927160/pexels-photo-1927160.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="פרויקט 1" loading="lazy">
+                        <div class="portfolio-item-overlay">
+                            <h3>אנרגיה אורבנית</h3>
+                            <p>פרסומות</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item scroll-animate" data-category="corporate"
+                        data-title="סרט תדמית 'העתיד של הייטק'"
+                        data-description="סרט תדמית שהצגנו בכנס בינלאומי, המציג את החדשנות של חברת טכנולוגיה מובילה.">
+                        <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="פרויקט 2" loading="lazy">
+                        <div class="portfolio-item-overlay">
+                            <h3>העתיד של הייטק</h3>
+                            <p>תדמית</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item scroll-animate" data-category="events"
+                        data-title="פסטיבל הג'אז הבינלאומי"
+                        data-description="סרט סיכום אנרגטי ומרגש מפסטיבל מוזיקה שנתי.">
+                        <img src="https://images.pexels.com/photos/167491/pexels-photo-167491.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="פרויקט 3" loading="lazy">
+                        <div class="portfolio-item-overlay">
+                            <h3>פסטיבל הג'אז</h3>
+                            <p>אירועים</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item scroll-animate" data-category="corporate"
+                        data-title="סיפורו של יקב בוטיק"
+                        data-description="סרט דוקו-תדמיתי חם ואישי על משפחה שהקימה יקב מצליח.">
+                        <img src="https://images.pexels.com/photos/1336824/pexels-photo-1336824.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="פרויקט 4" loading="lazy">
+                        <div class="portfolio-item-overlay">
+                            <h3>יקב בוטיק</h3>
+                            <p>תדמית</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item scroll-animate" data-category="commercials"
+                        data-title="טעם של בית - רשת מסעדות"
+                        data-description="פרסומת קולינרית מעוררת תיאבון לרשת מסעדות חדשה.">
+                        <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="פרויקט 5" loading="lazy">
+                        <div class="portfolio-item-overlay">
+                            <h3>טעם של בית</h3>
+                            <p>פרסומות</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item scroll-animate" data-category="events"
+                        data-title="חתונה בלבן - דנה ויואב"
+                        data-description="סרט חתונה קולנועי שתיעד את סיפור האהבה המיוחד שלהם.">
+                        <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="פרויקט 6" loading="lazy">
+                        <div class="portfolio-item-overlay">
+                            <h3>חתונה בלבן</h3>
+                            <p>אירועים</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <div class="section-header scroll-animate">
+                    <h2>מה לקוחות אומרים</h2>
+                    <p>ההצלחה הגדולה ביותר שלנו היא ההצלחה שלכם.</p>
+                </div>
+                <div class="testimonial-slider scroll-animate">
+                    <div class="testimonial-slides-container">
+                        <div class="testimonial-slide active">
+                            <div class="testimonial-author">
+                                <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=160"
+                                    alt="לקוחה 1" loading="lazy">
+                            </div>
+                            <div class="star-rating">★★★★★</div>
+                            <p class="testimonial-text">"הצוות של סינמטיק הפך את סרט התדמית שלנו ליצירת אמנות.
+                                המקצועיות, היצירתיות וההקפדה על הפרטים הקטנים היו מעל ומעבר לכל ציפייה."</p>
+                            <div class="testimonial-author">
+                                <h4>דנה כהן</h4>
+                                <p>מנכ"לית, TechNova</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-author">
+                                <img src="https://images.pexels.com/photos/837358/pexels-photo-837358.jpeg?auto=compress&cs=tinysrgb&w=160"
+                                    alt="לקוח 2" loading="lazy">
+                            </div>
+                            <div class="star-rating">★★★★★</div>
+                            <p class="testimonial-text">"הפרסומת שהפקתם עבורנו שברה שיאי צפייה והגדילה את המכירות ב-30%.
+                                פשוט אלופים! אין ספק שנמשיך לעבוד יחד."</p>
+                            <div class="testimonial-author">
+                                <h4>יוסי לוי</h4>
+                                <p>סמנכ"ל שיווק, UrbanStyle</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-slide">
+                            <div class="testimonial-author">
+                                <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=160"
+                                    alt="לקוח 3" loading="lazy">
+                            </div>
+                            <div class="star-rating">★★★★★</div>
+                            <p class="testimonial-text">"לא דמיינו שסרט החתונה שלנו יכול להיות כל כך מרגש וקולנועי. תודה
+                                שתפסתם כל רגע בצורה מושלמת."</p>
+                            <div class="testimonial-author">
+                                <h4>מיכל ואביתר שדה</h4>
+                                <p>זוג מאושר</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-nav"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container contact-grid">
+                <div class="contact-form-wrapper scroll-animate">
+                    <h2>מוכנים ליצור <span class="highlight">קסם?</span></h2>
+                    <p>ספרו לנו על הפרויקט שלכם, ואנחנו נחזור אליכם עם רעיונות שיעיפו אתכם. השאירו פרטים ונצא לדרך.</p>
+                    <form class="contact-form" action="https://formspree.io/f/your_form_id" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="שם מלא" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="אימייל" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="5" placeholder="ספרו לנו על הפרויקט..." required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">שליחה</button>
+                    </form>
+                </div>
+                <div class="contact-info scroll-animate" style="transition-delay: 200ms;">
+                    <h3>פרטי התקשרות</h3>
+                    <div class="contact-info-item">
+                        <div class="icon">📍</div>
+                        <div>
+                            <h4>מיקום</h4>
+                            <p>רחוב האמנים 12, תל אביב</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="icon">✉️</div>
+                        <div>
+                            <h4>אימייל</h4>
+                            <a href="mailto:hello@cinematic.co.il">hello@cinematic.co.il</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="icon">📞</div>
+                        <div>
+                            <h4>טלפון</h4>
+                            <a href="tel:03-1234567">03-1234567</a>
+                        </div>
+                    </div>
+                    <h4>עקבו אחרינו</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="Vimeo">V</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <a href="#hero" class="logo">סינמטיק<span class="highlight">.</span></a>
+        <p>&copy; 2025 סינמטיק הפקות. כל הזכויות שמורות.</p>
+        <div class="social-links">
+            <a href="#" aria-label="Instagram">Instagram</a> |
+            <a href="#" aria-label="Facebook">Facebook</a> |
+            <a href="#" aria-label="Vimeo">Vimeo</a>
+        </div>
+    </footer>
+
+    <div class="modal" id="portfolio-modal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-body">
+                <img id="modal-img" src="" alt="Portfolio item">
+                <h3 id="modal-title"></h3>
+                <p id="modal-description"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // =================================== */
+        //  JAVASCRIPT CODE STARTS HERE        */
+        // =================================== */
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // --- 1. General Initializer ---
+            function init() {
+                initPreloader();
+                initStickyHeader();
+                initScrollAnimations();
+                initTypewriter();
+                initMobileMenu();
+                initCounters();
+                initPortfolio();
+                initTestimonialSlider();
+                initSmoothScroll();
+                initActiveNavOnScroll();
+            }
+
+            // --- 2. Preloader ---
+            function initPreloader() {
+                const preloader = document.querySelector('.preloader');
+                window.addEventListener('load', () => {
+                    preloader.classList.add('loaded');
+                });
+            }
+
+            // --- 3. Sticky Header ---
+            function initStickyHeader() {
+                const header = document.querySelector('.main-header');
+                if (!header) return;
+
+                const handleScroll = () => {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                };
+                window.addEventListener('scroll', handleScroll);
+            }
+
+            // --- 4. Scroll-triggered Animations ---
+            function initScrollAnimations() {
+                const animatedElements = document.querySelectorAll('.scroll-animate');
+                if (animatedElements.length === 0) return;
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    rootMargin: '0px',
+                    threshold: 0.1
+                });
+
+                animatedElements.forEach(el => observer.observe(el));
+            }
+
+            // --- 5. Typewriter Effect ---
+            function initTypewriter() {
+                const typewriterElement = document.querySelector('.typewriter');
+                if (!typewriterElement) return;
+
+                const text = typewriterElement.textContent;
+                typewriterElement.textContent = '';
+                let i = 0;
+
+                function type() {
+                    if (i < text.length) {
+                        typewriterElement.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(type, 100);
+                    }
+                }
+                // Start after a short delay for effect
+                setTimeout(type, 500);
+            }
+
+            // --- 6. Mobile Navigation ---
+            function initMobileMenu() {
+                const hamburger = document.querySelector('.hamburger-menu');
+                const nav = document.querySelector('.main-nav');
+                const navLinks = nav.querySelectorAll('a');
+
+                if (!hamburger || !nav) return;
+
+                hamburger.addEventListener('click', () => {
+                    document.body.classList.toggle('nav-open');
+                });
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        document.body.classList.remove('nav-open');
+                    });
+                });
+            }
+
+            // --- 7. Counter Animations ---
+            function initCounters() {
+                const counters = document.querySelectorAll('.counter-number');
+                if (counters.length === 0) return;
+
+                const animateCounter = (counter) => {
+                    const target = +counter.getAttribute('data-target');
+                    let current = 0;
+                    const increment = target / 200; // Animation speed
+
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.8 });
+
+                counters.forEach(counter => observer.observe(counter));
+            }
+
+            // --- 8. Portfolio Filtering and Modal ---
+            function initPortfolio() {
+                const filterContainer = document.querySelector('.portfolio-filters');
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+                const modal = document.getElementById('portfolio-modal');
+
+                if (!filterContainer || !modal) return;
+
+                // Filtering logic
+                filterContainer.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'BUTTON') return;
+
+                    document.querySelector('.filter-btn.active').classList.remove('active');
+                    e.target.classList.add('active');
+
+                    const filter = e.target.dataset.filter;
+                    portfolioItems.forEach(item => {
+                        item.classList.add('hidden');
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            // Use timeout to allow CSS animation
+                            setTimeout(() => item.classList.remove('hidden'), 10);
+                        }
+                    });
+                });
+
+                // Modal logic
+                const modalImg = document.getElementById('modal-img');
+                const modalTitle = document.getElementById('modal-title');
+                const modalDesc = document.getElementById('modal-description');
+                const closeModalBtn = document.querySelector('.modal-close');
+
+                document.querySelector('.portfolio-grid').addEventListener('click', (e) => {
+                    const item = e.target.closest('.portfolio-item');
+                    if (!item) return;
+
+                    modalImg.src = item.querySelector('img').src;
+                    modalTitle.textContent = item.dataset.title;
+                    modalDesc.textContent = item.dataset.description;
+                    modal.classList.add('open');
+                });
+
+                const closeModal = () => modal.classList.remove('open');
+                closeModalBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+
+            // --- 9. Testimonial Slider ---
+            function initTestimonialSlider() {
+                const slides = document.querySelectorAll('.testimonial-slide');
+                const navContainer = document.querySelector('.slider-nav');
+                if (slides.length <= 1) return;
+
+                let currentSlide = 0;
+                let slideInterval;
+
+                // Create navigation dots
+                slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('slider-dot');
+                    dot.dataset.slide = i;
+                    if (i === 0) dot.classList.add('active');
+                    navContainer.appendChild(dot);
+                });
+
+                const dots = document.querySelectorAll('.slider-dot');
+
+                const goToSlide = (slideIndex) => {
+                    slides[currentSlide].classList.add('exiting');
+                    slides[currentSlide].classList.remove('active');
+                    dots[currentSlide].classList.remove('active');
+
+                    setTimeout(() => {
+                        slides[currentSlide].classList.remove('exiting');
+                        currentSlide = slideIndex;
+                        slides[currentSlide].classList.add('active');
+                        dots[currentSlide].classList.add('active');
+                    }, 50); // Small delay to allow exit animation to start
+                };
+
+                const startSlider = () => {
+                    slideInterval = setInterval(() => {
+                        const nextSlide = (currentSlide + 1) % slides.length;
+                        goToSlide(nextSlide);
+                    }, 5000); // Change slide every 5 seconds
+                };
+
+                navContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('slider-dot')) {
+                        clearInterval(slideInterval); // Stop auto-play on manual navigation
+                        goToSlide(parseInt(e.target.dataset.slide));
+                        startSlider(); // Restart auto-play
+                    }
+                });
+
+                startSlider();
+            }
+
+            // --- 10. Smooth Scrolling for Anchor Links ---
+            function initSmoothScroll() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+
+            // --- 11. Highlight Active Nav Link on Scroll ---
+            function initActiveNavOnScroll() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.main-nav a');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, { rootMargin: "-50% 0px -50% 0px" });
+
+                sections.forEach(section => observer.observe(section));
+            }
+
+            // Run the initializer
+            init();
+        });
+    </script>
+</body>
+
+</html>
